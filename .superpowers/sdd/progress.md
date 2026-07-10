@@ -8,3 +8,4 @@ Task 2: complete (commits 7b07c99..859d711, review clean; fix pass sharpened MCP
 Task 3: complete (commits 6a910bd..10eaf6e, review clean)
   - MINOR (final review): Nav brand uses <a href="#"> empty fragment.
   - hygiene: added *.tsbuildinfo to .gitignore, untracked artifact (controller).
+Task 4: complete (commits d43e2af..e3643f6, review clean; fix pass: scratch-vector perf + reactive reduced-motion)
