@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 import { projects } from '../data/content'
+import type { Project } from '../data/content'
+
+const CLICK_DRAG_THRESHOLD = 6
 
 const GAP = 260
 const ROT = 42
@@ -13,7 +16,11 @@ const GAP_MOBILE = 140
 const DEPTH_MOBILE = 220
 const MOBILE_BREAKPOINT_PX = 640
 
-export function ProjectCarousel() {
+type ProjectCarouselProps = {
+  onOpen?: (project: Project) => void
+}
+
+export function ProjectCarousel({ onOpen }: ProjectCarouselProps = {}) {
   const [index, setIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT_PX,
@@ -143,9 +150,18 @@ export function ProjectCarousel() {
                 }}
               >
                 <div
+                  onClick={() => {
+                    if (
+                      isActive &&
+                      onOpen &&
+                      Math.abs(dragState.current.moved) < CLICK_DRAG_THRESHOLD
+                    ) {
+                      onOpen(project)
+                    }
+                  }}
                   className={`relative flex h-full flex-col overflow-hidden rounded-2xl border p-6 backdrop-blur-md sm:p-8 ${
                     isActive ? 'border-accent/50' : 'border-muted/15'
-                  }`}
+                  } ${isActive && onOpen ? 'cursor-pointer' : ''}`}
                   style={{
                     background:
                       'linear-gradient(160deg, rgba(34,230,214,.08), rgba(10,17,32,.55) 60%)',
@@ -187,6 +203,7 @@ export function ProjectCarousel() {
                       href={primaryLink.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="relative mt-3 text-[13px] font-semibold text-accent"
                     >
                       {primaryLink.label} ↗
