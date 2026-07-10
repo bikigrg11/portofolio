@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body { background: #05070d; color: #e6edf7; -webkit-font-smoothing: antialiased; margin: 0; }
+.line { border-color: rgba(120,150,200,.14); }
