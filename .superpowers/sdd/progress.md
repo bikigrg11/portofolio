@@ -9,3 +9,6 @@ Task 3: complete (commits 6a910bd..10eaf6e, review clean)
   - MINOR (final review): Nav brand uses <a href="#"> empty fragment.
   - hygiene: added *.tsbuildinfo to .gitignore, untracked artifact (controller).
 Task 4: complete (commits d43e2af..e3643f6, review clean; fix pass: scratch-vector perf + reactive reduced-motion)
+Task 5: complete (commits b471ce4..30e28af, review clean)
+  - MINOR (final review): Hero tagline hardcodes "NYC" instead of deriving from profile.location.
+  - MINOR: headline "100+" vs stat "~100" wording (brief-mandated).
