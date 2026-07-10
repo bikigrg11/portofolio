@@ -1,11 +1,32 @@
+import { useEffect, useRef, useState } from 'react'
 import { profile } from '../data/content'
 import { HeroCanvas } from '../three/HeroCanvas'
 
 export function Hero() {
+  const contentRef = useRef<HTMLDivElement>(null)
+  // Tracks whether the hero is scrolled into view so HeroCanvas can pause
+  // its R3F frameloop offscreen (perf/battery). Defaults to visible so the
+  // canvas renders normally in environments without IntersectionObserver.
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const node = contentRef.current
+    if (!node || typeof IntersectionObserver === 'undefined') return
+
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), {
+      threshold: 0,
+    })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
-      <HeroCanvas />
-      <div className="relative z-10 flex min-h-screen flex-col justify-center px-[6vw] py-32">
+      <HeroCanvas isVisible={isVisible} />
+      <div
+        ref={contentRef}
+        className="relative z-10 flex min-h-screen flex-col justify-center px-[6vw] py-32"
+      >
         <span className="mb-6 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
           <span className="h-2 w-2 rounded-full bg-accent" />
           {profile.title} · NYC

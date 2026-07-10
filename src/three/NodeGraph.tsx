@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const NODE_COUNT = 90
+const DEFAULT_NODE_COUNT = 90
 const PULSE_COUNT = 40
 const EDGE_DISTANCE = 2.4
 const STAR_COUNT = 600
@@ -11,13 +11,13 @@ const STAR_COUNT = 600
  * Builds the fibonacci-ish sphere of node positions, matching
  * prototypes/1-cluster.html's layout so the visual ports 1:1.
  */
-function useClusterGeometry() {
+function useClusterGeometry(nodeCount: number) {
   return useMemo(() => {
     const nodes: THREE.Vector3[] = []
-    const positions = new Float32Array(NODE_COUNT * 3)
-    for (let i = 0; i < NODE_COUNT; i++) {
+    const positions = new Float32Array(nodeCount * 3)
+    for (let i = 0; i < nodeCount; i++) {
       const r = 5 + (i % 3) * 0.9
-      const phi = Math.acos(1 - (2 * (i + 0.5)) / NODE_COUNT)
+      const phi = Math.acos(1 - (2 * (i + 0.5)) / nodeCount)
       const theta = Math.PI * (1 + Math.sqrt(5)) * i
       const p = new THREE.Vector3(
         r * Math.sin(phi) * Math.cos(theta),
@@ -31,8 +31,8 @@ function useClusterGeometry() {
     }
 
     const linePositions: number[] = []
-    for (let i = 0; i < NODE_COUNT; i++) {
-      for (let j = i + 1; j < NODE_COUNT; j++) {
+    for (let i = 0; i < nodeCount; i++) {
+      for (let j = i + 1; j < nodeCount; j++) {
         if (nodes[i].distanceTo(nodes[j]) < EDGE_DISTANCE) {
           linePositions.push(
             nodes[i].x, nodes[i].y, nodes[i].z,
@@ -63,11 +63,16 @@ function useClusterGeometry() {
       edges,
       starPositions,
     }
-  }, [])
+  }, [nodeCount])
 }
 
-export function NodeGraph() {
-  const { nodePositions, linePositions, edges, starPositions } = useClusterGeometry()
+type NodeGraphProps = {
+  /** Number of cluster nodes to render; lower on small screens for perf. */
+  nodeCount?: number
+}
+
+export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
+  const { nodePositions, linePositions, edges, starPositions } = useClusterGeometry(nodeCount)
 
   const groupRef = useRef<THREE.Group>(null)
   const pointsMatRef = useRef<THREE.PointsMaterial>(null)
