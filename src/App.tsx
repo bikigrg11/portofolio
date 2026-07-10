@@ -1,9 +1,11 @@
 import { Nav } from './components/Nav'
 import { Section } from './components/Section'
+import { HeroCanvas } from './three/HeroCanvas'
 
 function App() {
   return (
     <div className="min-h-screen bg-bg">
+      <HeroCanvas />
       <Nav />
       <main className="pt-16">
         <Section id="work" eyebrow="Work" title="Work">
