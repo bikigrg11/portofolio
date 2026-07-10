@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Project } from '../data/content'
-import { ShotFrame } from './ShotFrame'
 
 type ProjectModalProps = {
   project: Project | null
@@ -52,16 +51,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             className="relative max-h-[88vh] w-[92vw] max-w-3xl overflow-y-auto rounded-2xl border border-muted/20 bg-bg2 p-6 sm:p-8"
           >
             <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="text-3xl">{project.icon}</div>
-                <div>
-                  <h3 className="text-xl font-bold leading-tight text-fg sm:text-2xl">
-                    {project.title}
-                  </h3>
-                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-accent">
-                    {project.category}
-                  </p>
-                </div>
+              <div>
+                <h3 className="text-xl font-bold leading-tight text-fg sm:text-2xl">
+                  {project.title}
+                </h3>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-accent">
+                  {project.category}
+                </p>
               </div>
               <button
                 type="button"
@@ -76,17 +72,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             <p className="mt-2 text-[13px] text-muted">
               {project.year} · {project.role}
             </p>
-
-            {(project.visual || project.shot) && (
-              <div className="mt-6">
-                <ShotFrame
-                  src={project.shot}
-                  alt={project.title}
-                  label={project.title}
-                  visual={project.visual}
-                />
-              </div>
-            )}
 
             {project.problem && (
               <div className="my-5">

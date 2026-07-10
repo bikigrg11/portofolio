@@ -175,8 +175,7 @@ export function ProjectCarousel({ onOpen }: ProjectCarouselProps = {}) {
                         'radial-gradient(circle, rgba(34,230,214,.22), transparent 70%)',
                     }}
                   />
-                  <div className="relative text-3xl">{project.icon}</div>
-                  <div className="relative mt-1.5 text-xs tracking-[2px] text-accent">
+                  <div className="relative text-xs tracking-[2px] text-accent">
                     {project.num}
                   </div>
                   <h3 className="relative mb-2 mt-3.5 text-xl font-bold leading-tight text-fg sm:text-2xl">

@@ -17,8 +17,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
         background: 'linear-gradient(180deg, rgba(255,255,255,.02), rgba(10,15,26,.5) 60%)',
       }}
     >
-      <div className="text-2xl">{project.icon}</div>
-      <h3 className="mt-3 text-lg font-bold leading-tight text-fg">{project.title}</h3>
+      <h3 className="text-lg font-bold leading-tight text-fg">{project.title}</h3>
       <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-accent">
         {project.category}
       </p>
