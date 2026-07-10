@@ -1,14 +1,7 @@
+import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useWebGLSupported } from '../hooks/useWebGLSupported'
 import { NodeGraph } from './NodeGraph'
-
-function prefersReducedMotion() {
-  return (
-    typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
-}
 
 /**
  * Full-bleed fixed background: the 3D node-graph when WebGL + motion are
@@ -17,7 +10,29 @@ function prefersReducedMotion() {
  */
 export function HeroCanvas() {
   const webglSupported = useWebGLSupported()
-  const reducedMotion = prefersReducedMotion()
+
+  // Reactive reduced-motion detection that responds to OS settings changes
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    // Default for SSR/jsdom or if matchMedia is unavailable
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      setReducedMotion(false)
+      return
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    // Set initial value
+    setReducedMotion(mediaQuery.matches)
+
+    // Subscribe to changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches)
+    }
+
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
 
   if (!webglSupported || reducedMotion) {
     return (

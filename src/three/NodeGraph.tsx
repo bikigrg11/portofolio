@@ -85,6 +85,9 @@ export function NodeGraph() {
 
   const pulsePositions = useMemo(() => new Float32Array(PULSE_COUNT * 3), [])
 
+  // Reusable scratch vector to avoid per-frame allocations in pulse loop
+  const scratchVector = useMemo(() => new THREE.Vector3(), [])
+
   // Pointer-driven drift target, mirroring the prototype's tx/ty interaction.
   const drift = useRef({ tx: 0, ty: 0 })
   const clock = useRef(0)
@@ -121,10 +124,10 @@ export function NodeGraph() {
           pu.edge = Math.floor(Math.random() * edges.length)
         }
         const [a, b] = edges[pu.edge]
-        const v = a.clone().lerp(b, pu.t)
-        arr[i * 3] = v.x
-        arr[i * 3 + 1] = v.y
-        arr[i * 3 + 2] = v.z
+        scratchVector.lerpVectors(a, b, pu.t)
+        arr[i * 3] = scratchVector.x
+        arr[i * 3 + 1] = scratchVector.y
+        arr[i * 3 + 2] = scratchVector.z
       })
       pulsePointsRef.current.geometry.attributes.position.needsUpdate = true
     }
