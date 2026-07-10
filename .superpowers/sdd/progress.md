@@ -12,3 +12,5 @@ Task 4: complete (commits d43e2af..e3643f6, review clean; fix pass: scratch-vect
 Task 5: complete (commits b471ce4..30e28af, review clean)
   - MINOR (final review): Hero tagline hardcodes "NYC" instead of deriving from profile.location.
   - MINOR: headline "100+" vs stat "~100" wording (brief-mandated).
+Task 6: complete (commits 0e0d40b..277920f, review clean; fix: #work nav link -> #about, all anchors resolve)
+  - MINOR (final review): About sentence longer than "short connective" (still truthful/traceable).
