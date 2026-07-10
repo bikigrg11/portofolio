@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Biki Gurung — Option 3: Playground</title>
+<style>
+  :root{
+    --bg:#f4f2ee; --fg:#14110d; --muted:#6b6459;
+    --accent:#4b34ff; --accent2:#ff4d6d; --card:#ffffff; --line:rgba(20,17,13,.1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:"SF Pro Display",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  #c{position:fixed;inset:0;z-index:0;cursor:grab}
+  #c:active{cursor:grabbing}
+  .wrap{position:relative;z-index:2;pointer-events:none}
+  .wrap a,.wrap button,.wrap .proj{pointer-events:auto}
+  nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:22px 6vw;mix-blend-mode:difference;color:#fff}
+  nav .brand{font-weight:800;letter-spacing:-.5px;font-size:17px}
+  nav .links{display:flex;gap:24px;font-size:13px;font-weight:500}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;max-width:1100px}
+  .pill{align-self:flex-start;pointer-events:auto;background:var(--accent);color:#fff;font-size:12px;font-weight:600;letter-spacing:1px;padding:8px 16px;border-radius:999px;margin-bottom:26px;text-transform:uppercase}
+  h1{font-size:clamp(48px,9vw,120px);line-height:.9;font-weight:800;letter-spacing:-4px}
+  h1 .o{color:var(--accent2)}
+  .sub{margin-top:28px;font-size:clamp(16px,2vw,22px);color:var(--muted);max-width:600px;line-height:1.6;font-weight:500}
+  .hint{margin-top:34px;font-size:13px;color:var(--accent);font-weight:600;pointer-events:auto}
+  .hint span{display:inline-block;animation:wob 1.6s infinite}
+  @keyframes wob{50%{transform:translateX(6px)}}
+  section.b{padding:110px 6vw;max-width:1200px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);font-weight:700;margin-bottom:14px}
+  h2{font-size:clamp(30px,5vw,56px);letter-spacing:-2px;font-weight:800;margin-bottom:36px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  .proj{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;transition:.2s;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .proj:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 20px 40px rgba(75,52,255,.14);border-color:var(--accent)}
+  .proj .yr{font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:1px}
+  .proj h3{font-size:20px;margin:8px 0 10px;font-weight:700}
+  .proj p{color:var(--muted);font-size:14px;line-height:1.6}
+  .proj .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:7px}
+  .proj .tags span{font-size:11px;font-weight:600;padding:5px 11px;background:rgba(75,52,255,.08);color:var(--accent);border-radius:999px}
+  .cta{padding:120px 6vw;max-width:1200px;margin:0 auto;text-align:center}
+  .cta h2{font-size:clamp(36px,7vw,88px)}
+  .big{color:var(--accent);border-bottom:4px solid var(--accent2)}
+  .foot{color:var(--muted);font-size:14px;margin-top:24px}
+  .note{position:fixed;bottom:14px;right:14px;z-index:20;font-size:11px;color:var(--muted);background:rgba(255,255,255,.9);padding:6px 12px;border-radius:8px;border:1px solid var(--line);pointer-events:auto}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="wrap">
+  <nav>
+    <div class="brand">BIKI GURUNG</div>
+    <div class="links"><a href="#work">Work</a><a href="#hire">Hire me</a></div>
+  </nav>
+
+  <header class="hero">
+    <span class="pill">SRE · Builder · NYC</span>
+    <h1>Reliability,<br/>but make it<br/><span class="o">playful.</span></h1>
+    <p class="sub">I'm Biki — I run ~100 Kubernetes clusters at DraftKings by day and build trading bots &amp; AI-agent tooling by night. Serious infra, curious mind.</p>
+    <div class="hint"><span>→</span> Move your mouse. Drag the dots around.</div>
+  </header>
+
+  <section class="b" id="work">
+    <div class="eyebrow">Stuff I've built</div>
+    <h2>Projects &amp; experiments</h2>
+    <div class="grid">
+      <div class="proj"><div class="yr">2026 · DRAFTKINGS</div><h3>Kubernetes MCP Server</h3><p>FastMCP server turning K8s operations on Rancher clusters into tools for AI agents — scoped auth + Slack incident automation.</p><div class="tags"><span>FastMCP</span><span>Rancher</span><span>Claude</span></div></div>
+      <div class="proj"><div class="yr">2026 · PERSONAL</div><h3>Autonomous Trading Bot</h3><p>Event-driven IBKR day-trader: backoff reconnection, position reconciliation, stop-loss safety, live FastAPI + WebSocket dashboard.</p><div class="tags"><span>Python</span><span>FastAPI</span><span>IBKR</span></div></div>
+      <div class="proj"><div class="yr">DRAFTKINGS</div><h3>Game-Aware Autoscaling</h3><p>Karpenter + KEDA + ScaleOps pre-warming capacity for live-betting spikes reactive autoscaling can't catch.</p><div class="tags"><span>Karpenter</span><span>KEDA</span></div></div>
+      <div class="proj"><div class="yr">DRAFTKINGS</div><h3>Kyverno Outage Killer</h3><p>Custom policies auto-routing network-heavy pods to high-bandwidth nodepools — eliminated a class of AWS PPS outages.</p><div class="tags"><span>Kyverno</span><span>AWS</span></div></div>
+      <div class="proj"><div class="yr">35% CHEAPER</div><h3>Karpenter Cost Cut</h3><p>Drove a Karpenter rollout + spot strategy that cut cluster compute cost ~35% across lower environments.</p><div class="tags"><span>Karpenter</span><span>Spot</span></div></div>
+      <div class="proj"><div class="yr">ALWAYS</div><h3>+ many side quests</h3><p>Game labs, scanners, dropcatchers, content tooling — the folder next to this one is full of them.</p><div class="tags"><span>curiosity</span></div></div>
+    </div>
+  </section>
+
+  <section class="cta" id="hire">
+    <div class="eyebrow" style="justify-content:center">Say hi</div>
+    <h2>Let's build something<br/><a class="big" href="mailto:bikigurung8@gmail.com">reliable.</a></h2>
+    <div class="foot">bikigurung8@gmail.com · New York, NY · github.com/bikigrg11 · linkedin.com/in/biki-gurung-264a08aa</div>
+  </section>
+</div>
+<div class="note">Option 3 — "Playground" · move mouse / drag · light + electric</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,0.1,100);
+camera.position.z=18;
+
+// interactive particle field (spring back to grid, repelled by cursor)
+const COLS=44, ROWS=26, GAP=0.9;
+const N=COLS*ROWS;
+const geo=new THREE.BufferGeometry();
+const pos=new Float32Array(N*3);
+const home=new Float32Array(N*3);
+const vel=new Float32Array(N*3);
+const col=new Float32Array(N*3);
+const cA=new THREE.Color(0x4b34ff), cB=new THREE.Color(0xff4d6d);
+let idx=0;
+for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){
+  const px=(x-COLS/2)*GAP, py=(y-ROWS/2)*GAP, pz=0;
+  pos[idx*3]=home[idx*3]=px; pos[idx*3+1]=home[idx*3+1]=py; pos[idx*3+2]=home[idx*3+2]=pz;
+  const c=cA.clone().lerp(cB, x/COLS);
+  col[idx*3]=c.r; col[idx*3+1]=c.g; col[idx*3+2]=c.b;
+  idx++;
+}
+geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+const mat=new THREE.PointsMaterial({size:0.28,vertexColors:true,transparent:true,opacity:0.95});
+const pts=new THREE.Points(geo,mat);
+scene.add(pts);
+
+// mouse in world space
+const mouse=new THREE.Vector3(999,999,0);
+const ndc=new THREE.Vector2();
+const ray=new THREE.Raycaster();
+const plane=new THREE.Plane(new THREE.Vector3(0,0,1),0);
+let dragging=false, force=2.6;
+function toWorld(e){
+  ndc.x=(e.clientX/innerWidth)*2-1; ndc.y=-(e.clientY/innerHeight)*2+1;
+  ray.setFromCamera(ndc,camera); ray.ray.intersectPlane(plane,mouse);
+}
+addEventListener('pointermove',e=>{toWorld(e);});
+addEventListener('pointerdown',e=>{dragging=true;force=6;toWorld(e);});
+addEventListener('pointerup',()=>{dragging=false;force=2.6;});
+addEventListener('pointerleave',()=>{mouse.set(999,999,0);});
+
+let tx=0,ty=0;
+addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);});
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+
+let t=0;
+function loop(){
+  t+=0.016;
+  const p=geo.attributes.position.array;
+  for(let i=0;i<N;i++){
+    const ix=i*3, iy=i*3+1, iz=i*3+2;
+    // wave in z
+    const wave=Math.sin(t + home[ix]*0.35 + home[iy]*0.3)*0.5;
+    // spring home
+    vel[ix]+=(home[ix]-p[ix])*0.02;
+    vel[iy]+=(home[iy]-p[iy])*0.02;
+    vel[iz]+=(home[iz]+wave-p[iz])*0.04;
+    // cursor repel
+    const dx=p[ix]-mouse.x, dy=p[iy]-mouse.y;
+    const d2=dx*dx+dy*dy;
+    if(d2<16){ const f=(1-d2/16)*force; const d=Math.sqrt(d2)||0.001; vel[ix]+=(dx/d)*f*0.12; vel[iy]+=(dy/d)*f*0.12; vel[iz]+=f*0.08; }
+    vel[ix]*=0.9; vel[iy]*=0.9; vel[iz]*=0.9;
+    p[ix]+=vel[ix]; p[iy]+=vel[iy]; p[iz]+=vel[iz];
+  }
+  geo.attributes.position.needsUpdate=true;
+  pts.rotation.y+=(tx*0.4-pts.rotation.y)*0.05;
+  pts.rotation.x+=(ty*0.3-pts.rotation.x)*0.05;
+  renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>

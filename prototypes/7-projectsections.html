@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Biki Gurung — Project Sections</title>
+<style>
+  :root{--bg:#05070d;--bg2:#0a0f1a;--fg:#e6edf7;--muted:#7d8aa3;--accent:#22e6d6;--accent2:#3b82f6;--line:rgba(120,150,200,.14)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:"SF Pro Display",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  #c{position:fixed;inset:0;z-index:0;opacity:.7}
+  .wrap{position:relative;z-index:1}
+  nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px 6vw;backdrop-filter:blur(12px);background:rgba(5,7,13,.5);border-bottom:1px solid var(--line)}
+  .brand{font-weight:700;letter-spacing:.5px}.brand b{color:var(--accent)}
+  .navlinks{display:flex;gap:24px;font-size:13px;color:var(--muted)}.navlinks a:hover{color:var(--accent)}
+
+  .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;max-width:1000px}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  h1{font-size:clamp(40px,7vw,84px);line-height:1;font-weight:700;letter-spacing:-2px}
+  h1 .g{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin-top:24px;font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:620px;line-height:1.6}
+
+  .sec-label{text-align:center;padding:90px 6vw 10px}
+  .sec-label .e{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+  .sec-label h2{font-size:clamp(28px,4vw,44px);letter-spacing:-1px;margin-top:10px}
+
+  .proj{max-width:1200px;margin:0 auto;padding:70px 6vw;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .proj:nth-child(even) .shot{order:2}
+  @media(max-width:860px){.proj{grid-template-columns:1fr;gap:34px}.proj:nth-child(even) .shot{order:0}}
+
+  /* screenshot device frame */
+  .shot{position:relative}
+  .frame{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);box-shadow:0 40px 90px rgba(0,0,0,.6);transition:.4s;transform:perspective(1400px) rotateY(6deg)}
+  .proj:nth-child(even) .frame{transform:perspective(1400px) rotateY(-6deg)}
+  .frame:hover{transform:perspective(1400px) rotateY(0) translateY(-6px)}
+  .bar{display:flex;gap:7px;padding:11px 14px;background:#0c1424;border-bottom:1px solid var(--line)}
+  .bar i{width:11px;height:11px;border-radius:50%;background:#26324a}.bar i:nth-child(1){background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+  .bar .url{margin-left:12px;font-size:11px;color:var(--muted);align-self:center}
+  .screen{aspect-ratio:16/10;display:grid;place-items:center;position:relative;overflow:hidden}
+  .screen .glow{position:absolute;inset:0;background:radial-gradient(120% 80% at 30% 10%,rgba(34,230,214,.25),transparent 55%),radial-gradient(100% 90% at 90% 100%,rgba(59,130,246,.28),transparent 55%)}
+  .screen .ph{position:relative;text-align:center;color:var(--muted);font-size:13px}
+  .screen .ph .big{font-size:44px;margin-bottom:8px;filter:drop-shadow(0 4px 20px rgba(34,230,214,.4))}
+  .screen .grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:34px 34px;opacity:.5}
+
+  .info .idx{font-size:13px;color:var(--accent);letter-spacing:2px}
+  .info h3{font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:-1px;margin:10px 0 6px}
+  .info .role{font-size:13px;color:var(--muted);margin-bottom:20px}
+  .block{margin:16px 0}
+  .block .k{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .block p{color:#c3ccdb;font-size:15px;line-height:1.65}
+  .metrics{display:flex;gap:28px;margin:22px 0}
+  .metrics .m .n{font-size:26px;font-weight:700;color:var(--fg)}.metrics .m .n span{color:var(--accent)}
+  .metrics .m .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .stack span{font-size:12px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--fg)}
+  .links{margin-top:22px;display:flex;gap:14px}
+  .links a{font-size:13px;font-weight:600;color:var(--accent);border-bottom:1px solid transparent}
+  .links a:hover{border-color:var(--accent)}
+
+  footer{padding:100px 6vw;text-align:center;border-top:1px solid var(--line);margin-top:60px}
+  footer .big{font-size:clamp(26px,4vw,40px);margin-bottom:16px}
+  footer .meta{color:var(--muted);font-size:13px}
+  .note{position:fixed;bottom:14px;right:14px;z-index:30;font-size:11px;color:var(--muted);background:rgba(10,15,26,.85);padding:6px 12px;border-radius:8px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="wrap">
+  <nav>
+    <div class="brand">BIKI<b>.</b>GURUNG</div>
+    <div class="navlinks"><a href="#projects">Projects</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <header class="hero">
+    <span class="tag"><span class="dot"></span>Site Reliability Engineer · NYC</span>
+    <h1>Deep dives into<br/><span class="g">reliable systems.</span></h1>
+    <p class="sub">Each project below is a full case study — the problem, what I built, and the measurable impact. Scroll through.</p>
+  </header>
+
+  <div class="sec-label" id="projects"><div class="e">Case studies</div><h2>Selected work, in depth</h2></div>
+
+  <!-- PROJECT 1 -->
+  <section class="proj">
+    <div class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span class="url">k8s-mcp.internal</span></div>
+      <div class="screen"><div class="grid-bg"></div><div class="glow"></div><div class="ph"><div class="big">⎈</div>MCP Server dashboard<br/><small>(screenshot goes here)</small></div></div></div></div>
+    <div class="info">
+      <div class="idx">01 — 2026 · DraftKings</div>
+      <h3>Kubernetes MCP Server</h3>
+      <div class="role">Platform tooling · designed &amp; built end-to-end</div>
+      <div class="block"><div class="k">Problem</div><p>On-call engineers needed safe, scoped ways to let AI agents run Kubernetes operations across Rancher-managed clusters without handing over god-mode access.</p></div>
+      <div class="block"><div class="k">What I built</div><p>A FastMCP server exposing curated K8s operations as agent tools, with multi-layer Rancher bearer-token auth scoping access per cluster and namespace, wired into Claude Code + n8n + Slack for automated incident workflows.</p></div>
+      <div class="metrics"><div class="m"><div class="n"><span>100+</span></div><div class="l">Clusters reachable</div></div><div class="m"><div class="n">per-ns</div><div class="l">Scoped auth</div></div></div>
+      <div class="stack"><span>FastMCP</span><span>Rancher</span><span>Python</span><span>n8n</span><span>Slack</span></div>
+      <div class="links"><a href="github.com/bikigrg11">GitHub ↗</a><a href="#">Read more ↗</a></div>
+    </div>
+  </section>
+
+  <!-- PROJECT 2 -->
+  <section class="proj">
+    <div class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span class="url">localhost:8000/dashboard</span></div>
+      <div class="screen"><div class="grid-bg"></div><div class="glow"></div><div class="ph"><div class="big">🤖</div>Trading dashboard<br/><small>(screenshot goes here)</small></div></div></div></div>
+    <div class="info">
+      <div class="idx">02 — 2026 · Personal</div>
+      <h3>Autonomous Trading Bot</h3>
+      <div class="role">Solo project · Interactive Brokers</div>
+      <div class="block"><div class="k">Problem</div><p>Automated day-trading on IBKR is unforgiving — a dropped socket, a missed fill, or an unhandled stop-loss can quietly lose real money.</p></div>
+      <div class="block"><div class="k">What I built</div><p>A production-hardened, event-driven agent: exponential-backoff reconnection, startup position reconciliation, stop-loss failure handling, fill validation, and market-calendar awareness — all observable through a live FastAPI + WebSocket dashboard.</p></div>
+      <div class="metrics"><div class="m"><div class="n">event<span>-driven</span></div><div class="l">Architecture</div></div><div class="m"><div class="n">live</div><div class="l">WS dashboard</div></div></div>
+      <div class="stack"><span>Python</span><span>FastAPI</span><span>WebSocket</span><span>IBKR API</span></div>
+      <div class="links"><a href="github.com/bikigrg11">GitHub ↗</a></div>
+    </div>
+  </section>
+
+  <!-- PROJECT 3 -->
+  <section class="proj">
+    <div class="shot"><div class="frame"><div class="bar"><i></i><i></i><i></i><span class="url">datadog · autoscaling</span></div>
+      <div class="screen"><div class="grid-bg"></div><div class="glow"></div><div class="ph"><div class="big">📈</div>Autoscaling dashboard<br/><small>(screenshot goes here)</small></div></div></div></div>
+    <div class="info">
+      <div class="idx">03 — DraftKings</div>
+      <h3>Game-Aware Autoscaling</h3>
+      <div class="role">Cloud Compute team</div>
+      <div class="block"><div class="k">Problem</div><p>Live-betting traffic spikes on a game schedule. Reactive autoscaling reacts too late — by the time it scales, the spike has already hit.</p></div>
+      <div class="block"><div class="k">What I built</div><p>A game-aware layer combining Karpenter + KEDA + ScaleOps with custom logic that pre-warms capacity ahead of predictable spikes, so nodes are ready before the traffic arrives.</p></div>
+      <div class="metrics"><div class="m"><div class="n"><span>35%</span></div><div class="l">Compute cost cut</div></div><div class="m"><div class="n">pre<span>-warm</span></div><div class="l">Capacity</div></div></div>
+      <div class="stack"><span>Karpenter</span><span>KEDA</span><span>ScaleOps</span><span>Datadog</span></div>
+      <div class="links"><a href="#">Case study ↗</a></div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="big">Want the full walkthrough?</div>
+    <p class="sub" style="margin:0 auto 20px;max-width:520px">Happy to go deeper on any of these — architecture, trade-offs, postmortems.</p>
+    <div class="stack" style="justify-content:center"><span>bikigurung8@gmail.com</span><span>github.com/bikigrg11</span><span>New York, NY</span></div>
+  </footer>
+</div>
+<div class="note">Project sections — deep case studies + screenshot frames</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,100);camera.position.z=16;
+const g=new THREE.BufferGeometry();const pos=[];
+for(let i=0;i<380;i++)pos.push((Math.random()-.5)*55,(Math.random()-.5)*45,(Math.random()-.5)*30);
+g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+const stars=new THREE.Points(g,new THREE.PointsMaterial({color:0x22e6d6,size:0.07,transparent:true,opacity:.5}));
+scene.add(stars);
+let sy=0;addEventListener('scroll',()=>sy=window.scrollY);
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+function loop(){stars.rotation.y+=0.0003;camera.position.y=-sy*0.002;camera.lookAt(0,camera.position.y,0);renderer.render(scene,camera);requestAnimationFrame(loop);}
+loop();
+</script>
+</body>
+</html>

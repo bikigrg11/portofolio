@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Biki Gurung — Project Carousel</title>
+<style>
+  :root{
+    --bg:#05070d;--fg:#e6edf7;--muted:#7d8aa3;--accent:#22e6d6;--accent2:#3b82f6;
+    --line:rgba(120,150,200,.14);--card:#0a1120;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:"SF Pro Display",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
+  #c{position:fixed;inset:0;z-index:0}
+  .stage{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+  header{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 6vw}
+  .brand{font-weight:700;letter-spacing:.5px}.brand b{color:var(--accent)}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;text-align:center}
+  h2{font-size:clamp(24px,3.5vw,38px);letter-spacing:-1px;text-align:center;margin-bottom:30px;font-weight:700}
+
+  /* 3D coverflow */
+  .carousel{position:relative;width:min(420px,80vw);height:440px;perspective:1600px;touch-action:pan-y}
+  .track{position:absolute;inset:0;transform-style:preserve-3d;cursor:grab}
+  .track:active{cursor:grabbing}
+  .slide{position:absolute;top:0;left:0;width:100%;height:100%;
+    transform-style:preserve-3d;transition:transform .6s cubic-bezier(.22,.61,.36,1),opacity .6s;
+    will-change:transform,opacity}
+  .cardface{position:absolute;inset:0;border-radius:22px;padding:32px;
+    background:linear-gradient(160deg,rgba(34,230,214,.08),rgba(10,17,32,.96) 60%);
+    border:1px solid var(--line);backdrop-filter:blur(10px);
+    box-shadow:0 30px 80px rgba(0,0,0,.55);display:flex;flex-direction:column;overflow:hidden}
+  .cardface::before{content:"";position:absolute;top:-40%;left:-30%;width:80%;height:80%;
+    background:radial-gradient(circle,rgba(34,230,214,.22),transparent 70%);filter:blur(20px)}
+  .slide.active .cardface{border-color:rgba(34,230,214,.5)}
+  .num{font-size:12px;color:var(--accent);letter-spacing:2px;position:relative}
+  .yr{font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:auto;position:relative}
+  .ttl{font-size:26px;font-weight:700;line-height:1.1;margin:14px 0 12px;position:relative}
+  .desc{font-size:14px;color:var(--muted);line-height:1.6;position:relative}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0;position:relative}
+  .tags span{font-size:11px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--fg)}
+  .link{position:relative;font-size:13px;color:var(--accent);font-weight:600;margin-top:6px}
+  .icon{position:relative;font-size:30px;margin-bottom:6px}
+
+  /* controls */
+  .controls{display:flex;align-items:center;gap:22px;margin-top:34px;z-index:3}
+  .arrow{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:rgba(10,17,32,.6);
+    color:var(--fg);font-size:20px;cursor:pointer;transition:.2s;display:grid;place-items:center;backdrop-filter:blur(8px)}
+  .arrow:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 24px rgba(34,230,214,.4);transform:scale(1.06)}
+  .dots{display:flex;gap:10px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--line);cursor:pointer;transition:.25s;border:none;padding:0}
+  .dot.on{background:var(--accent);box-shadow:0 0 12px var(--accent);width:26px;border-radius:6px}
+  .hint{position:absolute;bottom:26px;font-size:12px;color:var(--muted);letter-spacing:1px}
+  .count{position:absolute;top:24px;right:6vw;font-size:13px;color:var(--muted)}
+  .count b{color:var(--fg);font-size:20px}
+  .note{position:fixed;bottom:14px;right:14px;z-index:20;font-size:11px;color:var(--muted);background:rgba(10,15,26,.85);padding:6px 12px;border-radius:8px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="stage">
+  <header>
+    <div class="brand">BIKI<b>.</b>GURUNG</div>
+    <div style="font-size:13px;color:var(--muted)">Projects</div>
+  </header>
+  <div class="count"><b id="cur">1</b> / <span id="tot">6</span></div>
+
+  <div class="eyebrow">Selected work</div>
+  <h2>Drag to explore →</h2>
+
+  <div class="carousel"><div class="track" id="track"></div></div>
+
+  <div class="controls">
+    <button class="arrow" id="prev" aria-label="Previous">‹</button>
+    <div class="dots" id="dots"></div>
+    <button class="arrow" id="next" aria-label="Next">›</button>
+  </div>
+  <div class="hint">Drag · swipe · ← → arrows · click dots</div>
+</div>
+<div class="note">Project carousel — 3D coverflow · dark + cyan</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+/* ---------- project data ---------- */
+const projects=[
+  {icon:"⎈",num:"01",yr:"2026 · DraftKings",title:"Kubernetes MCP Server",desc:"FastMCP server exposing K8s operations on Rancher-managed clusters as tools for AI agents — per-cluster scoped auth and Slack-driven incident automation.",tags:["FastMCP","Rancher","Claude"],link:"github.com/bikigrg11"},
+  {icon:"🤖",num:"02",yr:"2026 · Personal",title:"Autonomous Trading Bot",desc:"Event-driven IBKR day-trading agent: exponential-backoff reconnection, startup position reconciliation, stop-loss failure handling, live FastAPI + WebSocket dashboard.",tags:["Python","FastAPI","IBKR"],link:"github.com/bikigrg11"},
+  {icon:"📈",num:"03",yr:"DraftKings",title:"Game-Aware Autoscaling",desc:"Karpenter + KEDA + ScaleOps layer that pre-warms capacity for predictable live-betting spikes reactive autoscaling can't catch in time.",tags:["Karpenter","KEDA","ScaleOps"],link:"Case study"},
+  {icon:"🛡️",num:"04",yr:"DraftKings",title:"Kyverno Outage Killer",desc:"Custom Kyverno policies auto-routing network-heavy workloads to high-bandwidth nodepools — eliminated an entire class of AWS PPS-limit outages.",tags:["Kyverno","AWS","Terraform"],link:"Case study"},
+  {icon:"💸",num:"05",yr:"DraftKings",title:"35% Compute Cost Cut",desc:"Drove a Karpenter rollout plus a spot-instance strategy across lower environments that cut cluster compute cost by roughly 35%.",tags:["Karpenter","Spot","Cost"],link:"Case study"},
+  {icon:"🧪",num:"06",yr:"Always",title:"Side Quests",desc:"Game labs, scanners, drop-catchers, content tooling — a whole folder of experiments. Curiosity that keeps me sharp between clusters.",tags:["Indie","Experiments"],link:"github.com/bikigrg11"},
+];
+
+/* ---------- build slides ---------- */
+const track=document.getElementById('track');
+const dotsEl=document.getElementById('dots');
+document.getElementById('tot').textContent=projects.length;
+projects.forEach((p,i)=>{
+  const s=document.createElement('div');s.className='slide';s.dataset.i=i;
+  s.innerHTML=`<div class="cardface">
+    <div class="icon">${p.icon}</div>
+    <div class="num">${p.num}</div>
+    <div class="ttl">${p.title}</div>
+    <div class="desc">${p.desc}</div>
+    <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="link">${p.link} ↗</div>
+    <div class="yr">${p.yr}</div>
+  </div>`;
+  track.appendChild(s);
+  const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label','Go to '+p.title);
+  d.addEventListener('click',()=>go(i));dotsEl.appendChild(d);
+});
+const slides=[...track.children];
+const dots=[...dotsEl.children];
+
+/* ---------- coverflow layout ---------- */
+let index=0;
+const GAP=260, ROT=42, DEPTH=340, DIM=0.5;
+function render(){
+  slides.forEach((s,i)=>{
+    let off=i-index;
+    const abs=Math.abs(off);
+    const x=off*GAP;
+    const z=-abs*DEPTH;
+    const ry=-off*ROT;
+    const sc=Math.max(0.6,1-abs*0.12);
+    s.style.transform=`translateX(${x}px) translateZ(${z}px) rotateY(${ry}deg) scale(${sc})`;
+    s.style.opacity=abs>2.6?0:1;
+    s.style.zIndex=100-abs;
+    s.classList.toggle('active',i===index);
+    s.style.filter=abs===0?'none':`brightness(${1-abs*DIM*0.5})`;
+  });
+  dots.forEach((d,i)=>d.classList.toggle('on',i===index));
+  document.getElementById('cur').textContent=index+1;
+}
+function go(i){index=Math.max(0,Math.min(projects.length-1,i));render();}
+document.getElementById('next').onclick=()=>go(index+1);
+document.getElementById('prev').onclick=()=>go(index-1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(index+1);if(e.key==='ArrowLeft')go(index-1);});
+
+/* drag / swipe */
+let down=false,sx=0,moved=0;
+track.addEventListener('pointerdown',e=>{down=true;sx=e.clientX;moved=0;track.setPointerCapture(e.pointerId);});
+track.addEventListener('pointermove',e=>{if(!down)return;moved=e.clientX-sx;
+  slides.forEach((s,i)=>{const off=i-index;s.style.transform+='';});
+  // live nudge
+  track.style.transform=`translateX(${moved*0.25}px)`;
+});
+function endDrag(){if(!down)return;down=false;track.style.transform='';
+  if(moved<-60)go(index+1);else if(moved>60)go(index-1);else render();}
+track.addEventListener('pointerup',endDrag);
+track.addEventListener('pointercancel',endDrag);
+/* wheel horizontal */
+let wlock=false;
+addEventListener('wheel',e=>{if(wlock)return;const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
+  if(Math.abs(d)>10){wlock=true;go(index+(d>0?1:-1));setTimeout(()=>wlock=false,450);}},{passive:true});
+render();
+
+/* ---------- three.js starfield / node backdrop ---------- */
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,100);camera.position.z=16;
+const g=new THREE.BufferGeometry();const pos=[];
+for(let i=0;i<420;i++)pos.push((Math.random()-.5)*50,(Math.random()-.5)*40,(Math.random()-.5)*30);
+g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+const stars=new THREE.Points(g,new THREE.PointsMaterial({color:0x22e6d6,size:0.09,transparent:true,opacity:.55}));
+scene.add(stars);
+const g2=new THREE.BufferGeometry();const p2=[];
+for(let i=0;i<200;i++)p2.push((Math.random()-.5)*60,(Math.random()-.5)*50,(Math.random()-.5)*40);
+g2.setAttribute('position',new THREE.Float32BufferAttribute(p2,3));
+scene.add(new THREE.Points(g2,new THREE.PointsMaterial({color:0x3b82f6,size:0.05,transparent:true,opacity:.4})));
+let mx=0;addEventListener('pointermove',e=>mx=(e.clientX/innerWidth-.5));
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+function loop(){stars.rotation.y+=0.0004;stars.rotation.x+=0.0002;
+  camera.position.x+=(mx*4-camera.position.x)*0.04;camera.lookAt(0,0,0);
+  // parallax with carousel index
+  stars.position.x=-index*0.4;
+  renderer.render(scene,camera);requestAnimationFrame(loop);}
+loop();
+</script>
+</body>
+</html>

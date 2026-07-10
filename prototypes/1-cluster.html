@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Biki Gurung — Option 1: Cluster</title>
+<style>
+  :root{
+    --bg:#05070d; --bg2:#0a0f1a; --fg:#e6edf7; --muted:#7d8aa3;
+    --accent:#22e6d6; --accent2:#3b82f6; --line:rgba(120,150,200,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--fg);font-family:"SF Pro Display",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  #c{position:fixed;inset:0;z-index:0}
+  .wrap{position:relative;z-index:1}
+  nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:22px 6vw;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .brand{font-weight:700;letter-spacing:.5px;font-size:15px}
+  nav .brand b{color:var(--accent)}
+  nav .links{display:flex;gap:28px;font-size:13px;color:var(--muted)}
+  nav .links a:hover{color:var(--fg)}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;max-width:1100px}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:26px}
+  .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  h1{font-size:clamp(42px,7vw,86px);line-height:.98;font-weight:700;letter-spacing:-2px}
+  h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin-top:26px;font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:620px;line-height:1.6}
+  .cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn{padding:14px 26px;border-radius:999px;font-size:14px;font-weight:600;border:1px solid var(--line);transition:.2s}
+  .btn.primary{background:var(--accent);color:#04121a;border-color:var(--accent)}
+  .btn.primary:hover{box-shadow:0 0 30px rgba(34,230,214,.5);transform:translateY(-2px)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .stats{margin-top:64px;display:flex;gap:48px;flex-wrap:wrap}
+  .stat .n{font-size:34px;font-weight:700;color:var(--fg)}
+  .stat .n span{color:var(--accent)}
+  .stat .l{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+  section.block{padding:120px 6vw;max-width:1200px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h2{font-size:clamp(28px,4vw,44px);letter-spacing:-1px;margin-bottom:40px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);transition:.25s}
+  .card:hover{border-color:rgba(34,230,214,.4);transform:translateY(-4px);background:linear-gradient(180deg,rgba(34,230,214,.06),transparent)}
+  .card h3{font-size:19px;margin-bottom:10px}
+  .card .yr{font-size:11px;color:var(--accent);letter-spacing:1px}
+  .card p{color:var(--muted);font-size:14px;line-height:1.6;margin-top:10px}
+  .card .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .card .tags span{font-size:11px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+  footer{padding:80px 6vw;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .note{position:fixed;bottom:14px;right:14px;z-index:20;font-size:11px;color:var(--muted);background:rgba(10,15,26,.8);padding:6px 12px;border-radius:8px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="wrap">
+  <nav>
+    <div class="brand">BIKI<b>.</b>GURUNG</div>
+    <div class="links"><a href="#work">Work</a><a href="#projects">Projects</a><a href="#stack">Stack</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <header class="hero">
+    <span class="tag"><span class="dot"></span>Site Reliability Engineer · NYC</span>
+    <h1>I keep <span class="grad">100+ clusters</span><br/>alive at scale.</h1>
+    <p class="sub">Kubernetes-focused SRE at DraftKings — cluster lifecycle, reliability, and observability for live, latency-sensitive traffic across hybrid AWS + on-prem. I turn recurring outages into automation and infra into reviewable code.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">View projects →</a>
+      <a class="btn ghost" href="mailto:bikigurung8@gmail.com">Get in touch</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n"><span>~100</span></div><div class="l">Clusters operated</div></div>
+      <div class="stat"><div class="n"><span>35%</span></div><div class="l">Compute cost cut</div></div>
+      <div class="stat"><div class="n"><span>3.5</span>yr</div><div class="l">K8s at scale</div></div>
+    </div>
+  </header>
+
+  <section class="block" id="projects">
+    <div class="eyebrow">Selected work</div>
+    <h2>Things I've built &amp; shipped</h2>
+    <div class="grid">
+      <div class="card"><div class="yr">2026 · DraftKings</div><h3>Kubernetes MCP Server</h3><p>FastMCP server exposing K8s operations on Rancher-managed clusters as tools for AI agents, with per-cluster/namespace auth and Slack-driven incident workflows.</p><div class="tags"><span>FastMCP</span><span>Rancher</span><span>Claude</span></div></div>
+      <div class="card"><div class="yr">2026 · Personal</div><h3>Autonomous Trading Bot</h3><p>Production-hardened, event-driven IBKR day-trading agent: exponential-backoff reconnection, position reconciliation, stop-loss failure handling, FastAPI + WebSocket dashboard.</p><div class="tags"><span>Python</span><span>FastAPI</span><span>WebSocket</span></div></div>
+      <div class="card"><div class="yr">DraftKings</div><h3>Game-Aware Autoscaling</h3><p>Karpenter + KEDA + ScaleOps layer that pre-warms capacity for predictable live-betting spikes reactive autoscaling can't catch in time.</p><div class="tags"><span>Karpenter</span><span>KEDA</span><span>ScaleOps</span></div></div>
+      <div class="card"><div class="yr">DraftKings</div><h3>Kyverno Outage Killer</h3><p>Custom Kyverno policies that auto-route network-heavy workloads to high-bandwidth nodepools — eliminated a whole class of AWS PPS-limit outages.</p><div class="tags"><span>Kyverno</span><span>AWS</span><span>Terraform</span></div></div>
+    </div>
+  </section>
+
+  <section class="block" id="stack">
+    <div class="eyebrow">Toolbox</div>
+    <h2>The stack I run on</h2>
+    <div class="grid">
+      <div class="card"><h3>Kubernetes &amp; Reliability</h3><p>K8s at scale, Karpenter, KEDA, ScaleOps, Kyverno, Helm, Fleet, Rancher, RKE.</p></div>
+      <div class="card"><h3>Cloud &amp; Compute</h3><p>AWS (EC2, ELB, Route 53, Local Zones, Lambda), GCP, on-prem vSphere &amp; Nutanix.</p></div>
+      <div class="card"><h3>IaC &amp; Observability</h3><p>Terraform, Atlantis, Chef, Ansible · Datadog, CloudWatch, Kibana, on-call &amp; postmortems.</p></div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div style="font-size:26px;color:var(--fg);margin-bottom:14px">Let's build reliable things.</div>
+    bikigurung8@gmail.com · New York, NY · github.com/bikigrg11 · linkedin.com/in/biki-gurung-264a08aa
+  </footer>
+</div>
+<div class="note">Option 1 — "Cluster" · drag to orbit · dark + cyan</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0,0,14);
+
+// ---- build a cluster / node-graph ----
+const group = new THREE.Group(); scene.add(group);
+const NODES = 90;
+const nodes = [];
+const positions = [];
+for(let i=0;i<NODES;i++){
+  // fibonacci-ish sphere shell + a few inner clusters
+  const r = 5 + (i%3)*0.9;
+  const phi = Math.acos(1 - 2*(i+0.5)/NODES);
+  const theta = Math.PI*(1+Math.sqrt(5))*i;
+  const p = new THREE.Vector3(
+    r*Math.sin(phi)*Math.cos(theta),
+    r*Math.sin(phi)*Math.sin(theta),
+    r*Math.cos(phi)
+  );
+  nodes.push(p); positions.push(p.x,p.y,p.z);
+}
+// points
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+const pMat = new THREE.PointsMaterial({color:0x22e6d6, size:0.16, transparent:true, opacity:0.95});
+group.add(new THREE.Points(pGeo, pMat));
+
+// glowing node halos
+const halo = new THREE.SpriteMaterial({color:0x22e6d6, transparent:true, opacity:0.35, blending:THREE.AdditiveBlending});
+nodes.forEach((p,i)=>{ if(i%4===0){const s=new THREE.Sprite(halo); s.position.copy(p); s.scale.setScalar(0.9); group.add(s);} });
+
+// edges between near nodes
+const linePos=[];
+for(let i=0;i<NODES;i++){
+  for(let j=i+1;j<NODES;j++){
+    if(nodes[i].distanceTo(nodes[j])<2.4){
+      linePos.push(nodes[i].x,nodes[i].y,nodes[i].z, nodes[j].x,nodes[j].y,nodes[j].z);
+    }
+  }
+}
+const lGeo=new THREE.BufferGeometry();
+lGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePos,3));
+const lMat=new THREE.LineBasicMaterial({color:0x2b6ef0, transparent:true, opacity:0.22});
+group.add(new THREE.LineSegments(lGeo,lMat));
+
+// pulses travelling along edges
+const pulseCount=40;
+const pulseGeo=new THREE.BufferGeometry();
+const pulsePos=new Float32Array(pulseCount*3);
+pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulsePos,3));
+const pulseMat=new THREE.PointsMaterial({color:0xffffff,size:0.18,transparent:true,opacity:0.9,blending:THREE.AdditiveBlending});
+group.add(new THREE.Points(pulseGeo,pulseMat));
+const edges=[]; for(let i=0;i<linePos.length;i+=6){edges.push([new THREE.Vector3(linePos[i],linePos[i+1],linePos[i+2]),new THREE.Vector3(linePos[i+3],linePos[i+4],linePos[i+5])]);}
+const pulses=Array.from({length:pulseCount},()=>({e:Math.floor(Math.random()*edges.length),t:Math.random(),sp:0.004+Math.random()*0.01}));
+
+// starfield backdrop
+const starGeo=new THREE.BufferGeometry();
+const sp=[];for(let i=0;i<600;i++){sp.push((Math.random()-.5)*60,(Math.random()-.5)*60,(Math.random()-.5)*60);}
+starGeo.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0x33507a,size:0.08,transparent:true,opacity:.6})));
+
+// interaction: drag to orbit
+let tx=0,ty=0,cx=0,cy=0,down=false,px,py;
+addEventListener('pointerdown',e=>{down=true;px=e.clientX;py=e.clientY});
+addEventListener('pointerup',()=>down=false);
+addEventListener('pointermove',e=>{
+  const nx=(e.clientX/innerWidth-.5), ny=(e.clientY/innerHeight-.5);
+  tx = nx*0.6; ty = ny*0.6;
+  if(down){cx += (e.clientX-px)*0.005; cy += (e.clientY-py)*0.005; px=e.clientX; py=e.clientY;}
+});
+let scrollY=0; addEventListener('scroll',()=>scrollY=window.scrollY);
+
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+
+let t=0;
+function loop(){
+  t+=0.01;
+  group.rotation.y += 0.0016 + cx*0.02; cx*=0.94;
+  group.rotation.x = ty*0.5 + cy; cy*=0.96;
+  group.rotation.y += (tx-group.rotation.y)*0.0; // tx handled via camera
+  camera.position.x += (tx*4 - camera.position.x)*0.05;
+  camera.position.y += (-ty*4 - camera.position.y)*0.05;
+  camera.position.z = 14 + scrollY*0.004;
+  camera.lookAt(0,0,0);
+  pMat.opacity = 0.6 + Math.sin(t*2)*0.15;
+  // pulses
+  const arr=pulseGeo.attributes.position.array;
+  pulses.forEach((pu,i)=>{ pu.t+=pu.sp; if(pu.t>1){pu.t=0;pu.e=Math.floor(Math.random()*edges.length);} const e=edges[pu.e]; const v=e[0].clone().lerp(e[1],pu.t); arr[i*3]=v.x;arr[i*3+1]=v.y;arr[i*3+2]=v.z;});
+  pulseGeo.attributes.position.needsUpdate=true;
+  renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>
