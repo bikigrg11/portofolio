@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { IridescentKnot } from './IridescentKnot'
 
 const DEFAULT_NODE_COUNT = 90
 const PULSE_COUNT = 40
@@ -95,6 +94,25 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
   // Reusable scratch vector to avoid per-frame allocations in pulse loop
   const scratchVector = useMemo(() => new THREE.Vector3(), [])
 
+  // Soft circular sprite so points render as round dots, not square pixels.
+  const dotTexture = useMemo(() => {
+    if (typeof document === 'undefined') return null
+    const size = 64
+    const canvas = document.createElement('canvas')
+    canvas.width = canvas.height = size
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return null
+    const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
+    g.addColorStop(0, 'rgba(255,255,255,1)')
+    g.addColorStop(0.55, 'rgba(255,255,255,1)')
+    g.addColorStop(1, 'rgba(255,255,255,0)')
+    ctx.fillStyle = g
+    ctx.beginPath()
+    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2)
+    ctx.fill()
+    return new THREE.CanvasTexture(canvas)
+  }, [])
+
   // Pointer-driven drift target, mirroring the prototype's tx/ty interaction.
   const drift = useRef({ tx: 0, ty: 0 })
   const clock = useRef(0)
@@ -160,7 +178,9 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
           <pointsMaterial
             ref={pointsMatRef}
             color="#22e6d6"
-            size={0.16}
+            size={0.09}
+            map={dotTexture}
+            alphaTest={0.01}
             transparent
             opacity={0.95}
             sizeAttenuation
@@ -186,7 +206,8 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
           </bufferGeometry>
           <pointsMaterial
             color="#ffffff"
-            size={0.18}
+            size={0.12}
+            map={dotTexture}
             transparent
             opacity={0.9}
             blending={THREE.AdditiveBlending}
@@ -195,9 +216,6 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
         </points>
       </group>
 
-      {/* Small iridescent accent object drifting in the background */}
-      <IridescentKnot position={[6.2, 3.2, -3]} scale={0.5} />
-
       <points ref={starsRef} frustumCulled={false}>
         <bufferGeometry>
           <bufferAttribute
@@ -205,7 +223,15 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
             args={[starPositions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial color="#22e6d6" size={0.06} transparent opacity={0.22} sizeAttenuation />
+        <pointsMaterial
+          color="#22e6d6"
+          size={0.045}
+          map={dotTexture}
+          alphaTest={0.01}
+          transparent
+          opacity={0.28}
+          sizeAttenuation
+        />
       </points>
     </>
   )
