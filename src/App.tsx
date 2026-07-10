@@ -7,7 +7,7 @@ import { Contact } from './sections/Contact'
 
 function App() {
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen">
       <Nav />
       <Hero />
       <main>
