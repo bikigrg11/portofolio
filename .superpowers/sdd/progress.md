@@ -19,3 +19,5 @@ Task 7: complete (commits 69b0713..370bb01, review clean)
 Task 8: complete (commits f2e7d7c..dca017d, review clean)
   - MINOR (polish): external github/linkedin links lack target=_blank rel=noopener (consistent w/ CaseStudy links).
 Task 9: complete (commits b76eb31..65f1075, review clean; content.ts->content.tsx, 3 infra SVG diagrams wired)
+Task 10: complete (commits c136ddc..95d778d, review clean; captured trading-bot + side-quests wired; job-hunt-tracker + kept-web captured but UNUSED — enrichment opportunity)
+  - ENHANCEMENT (offer user): feature job-hunt-tracker.png + kept-web.png as MoreWork cards.
