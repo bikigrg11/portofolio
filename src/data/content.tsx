@@ -286,6 +286,58 @@ export const profile = {
   ],
 }
 
+export type ExperienceEntry = {
+  role: string
+  company: string
+  period: string
+  location?: string
+  points: string[]
+}
+
+export const experience: ExperienceEntry[] = [
+  {
+    role: 'Site Reliability Engineer — Cloud Compute Team',
+    company: 'DraftKings',
+    period: 'Nov 2022 – Present',
+    location: 'New York, NY',
+    points: [
+      'Operate ~100 Kubernetes clusters running ~200 services across hybrid AWS + on-prem (vSphere/Nutanix) infrastructure powering live sportsbook traffic — direct ownership of cluster bring-up, upgrades, capacity, reliability, performance, and cost.',
+      'Eliminated a recurring outage class caused by AWS bandwidth/PPS limits by authoring custom Kyverno policies that auto-route network-heavy workloads to high-bandwidth nodepools. Drove it end-to-end: detection, mitigation, rollout, postmortem.',
+      'Contributed to a Karpenter rollout that cut cluster compute cost ~35%; manage node classes / nodepools and expanded savings with spot instances on lower-environment clusters.',
+    ],
+  },
+  {
+    role: 'Senior IT Analyst',
+    company: 'Christian Louboutin LLC',
+    period: 'Oct 2021 – Aug 2022',
+    points: [
+      'Managed cloud + endpoint infrastructure (Azure AD, Intune MDM, SCCM) across retail; proactive monitoring and incident analysis for production services.',
+    ],
+  },
+  {
+    role: 'IS&T Analyst',
+    company: 'LVMH — Fashion Group',
+    period: 'Jan 2019 – Nov 2021',
+    points: [
+      'Owned design, architecture, and deployment of front-office applications across Mac + Windows fleets in retail and corporate.',
+    ],
+  },
+  {
+    role: 'Software Developer Intern',
+    company: 'RiskVal Financial Solutions',
+    period: 'Aug 2018 – Jan 2019',
+    points: [
+      'Built portfolio management features sourcing data from the Bloomberg Terminal API; designed test harnesses to validate runtime correctness.',
+    ],
+  },
+]
+
+export const education = {
+  degree: 'B.S. Computer Science',
+  school: 'Stony Brook University',
+  year: 'Dec 2018',
+}
+
 export const skills: { group: string; items: string[] }[] = [
   {
     group: 'Kubernetes / Reliability',

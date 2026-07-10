@@ -2,6 +2,7 @@ import { Nav } from './components/Nav'
 import { Hero } from './sections/Hero'
 import { About } from './sections/About'
 import { Projects } from './sections/Projects'
+import { Experience } from './sections/Experience'
 import { Stack } from './sections/Stack'
 import { Contact } from './sections/Contact'
 
@@ -21,6 +22,7 @@ function App() {
       <main>
         <About />
         <Projects />
+        <Experience />
         <Stack />
         <Contact />
       </main>
