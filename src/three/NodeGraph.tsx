@@ -119,7 +119,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
     state.camera.lookAt(0, 0, 0)
 
     if (pointsMatRef.current) {
-      pointsMatRef.current.opacity = 0.6 + Math.sin(t * 2) * 0.15
+      pointsMatRef.current.opacity = 0.42 + Math.sin(t * 2) * 0.1
     }
 
     // Slow drift of the starfield so the background pixels feel alive,
@@ -174,7 +174,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
               args={[linePositions, 3]}
             />
           </bufferGeometry>
-          <lineBasicMaterial color="#3b82f6" transparent opacity={0.22} />
+          <lineBasicMaterial color="#3b82f6" transparent opacity={0.12} />
         </lineSegments>
 
         <points ref={pulsePointsRef} frustumCulled={false}>
@@ -205,7 +205,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
             args={[starPositions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial color="#22e6d6" size={0.07} transparent opacity={0.42} sizeAttenuation />
+        <pointsMaterial color="#22e6d6" size={0.06} transparent opacity={0.3} sizeAttenuation />
       </points>
     </>
   )
