@@ -3,5 +3,8 @@
 @tailwind utilities;
 :root { color-scheme: dark; }
 html { scroll-behavior: smooth; }
+/* Prevent stray horizontal scrolling — the carousel's fanned 3D cards extend
+   past the viewport by design; clip them instead of letting the page scroll. */
+html, body { overflow-x: hidden; max-width: 100%; }
 body { background: #05070d; color: #e6edf7; -webkit-font-smoothing: antialiased; margin: 0; }
 .line { border-color: rgba(120,150,200,.14); }

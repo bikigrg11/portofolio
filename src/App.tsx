@@ -7,7 +7,7 @@ import { Contact } from './sections/Contact'
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Uniform dark veil over the 3D background so text stays readable at a
           consistent dimness the whole way down (no fade-to-black on scroll).
           Sits between the -z-10 canvas and the page content. */}
