@@ -205,7 +205,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
             args={[starPositions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial color="#22e6d6" size={0.06} transparent opacity={0.3} sizeAttenuation />
+        <pointsMaterial color="#22e6d6" size={0.06} transparent opacity={0.22} sizeAttenuation />
       </points>
     </>
   )

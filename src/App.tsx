@@ -16,7 +16,7 @@ function App() {
         aria-hidden="true"
         style={{
           background:
-            'linear-gradient(180deg, rgba(5,7,13,0.30) 0%, rgba(5,7,13,0.62) 55%, rgba(5,7,13,0.78) 100%)',
+            'linear-gradient(180deg, rgba(5,7,13,0.55) 0%, rgba(5,7,13,0.78) 55%, rgba(5,7,13,0.90) 100%)',
         }}
       />
       <Nav />
