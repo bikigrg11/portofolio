@@ -22,3 +22,4 @@ Task 9: complete (commits b76eb31..65f1075, review clean; content.ts->content.ts
 Task 10: complete (commits c136ddc..95d778d, review clean; captured trading-bot + side-quests wired; job-hunt-tracker + kept-web captured but UNUSED — enrichment opportunity)
   - ENHANCEMENT (offer user): feature job-hunt-tracker.png + kept-web.png as MoreWork cards.
 Task 11: complete (commits a092ceb..d8c154c, review clean; offscreen-pause, mobile node-count, SEO meta, favicon.svg, og.png)
+Task 12: complete (commits f487ff4..65fd1df, review clean; Dockerfile+nginx+fly.toml deploy-ready, path/port verified)
