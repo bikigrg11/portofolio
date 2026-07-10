@@ -7,22 +7,14 @@ const MOBILE_BREAKPOINT_PX = 700
 const MOBILE_NODE_COUNT = 55
 const DESKTOP_NODE_COUNT = 90
 
-type HeroCanvasProps = {
-  /**
-   * Whether the hero is currently intersecting the viewport. When false the
-   * R3F frameloop is stopped entirely (no useFrame ticks), saving perf/battery
-   * while the user has scrolled past it. Defaults to true so the canvas
-   * renders normally until a parent wires up visibility tracking.
-   */
-  isVisible?: boolean
-}
-
 /**
  * Full-bleed fixed background: the 3D node-graph when WebGL + motion are
  * available, otherwise a static gradient so nothing crashes or animates
- * against a user's accessibility preference.
+ * against a user's accessibility preference. The graph animates continuously
+ * across the whole page (it's a fixed background behind every section), so it
+ * stays alive as you scroll rather than freezing once the hero scrolls away.
  */
-export function HeroCanvas({ isVisible = true }: HeroCanvasProps) {
+export function HeroCanvas() {
   const webglSupported = useWebGLSupported()
 
   // Reactive reduced-motion detection that responds to OS settings changes
@@ -75,7 +67,7 @@ export function HeroCanvas({ isVisible = true }: HeroCanvasProps) {
       className="fixed inset-0 -z-10"
       dpr={[1, 2]}
       camera={{ position: [0, 0, 14], fov: 55 }}
-      frameloop={isVisible ? 'always' : 'never'}
+      frameloop="always"
     >
       <NodeGraph nodeCount={nodeCount} />
     </Canvas>
