@@ -14,3 +14,5 @@ Task 5: complete (commits b471ce4..30e28af, review clean)
   - MINOR: headline "100+" vs stat "~100" wording (brief-mandated).
 Task 6: complete (commits 0e0d40b..277920f, review clean; fix: #work nav link -> #about, all anchors resolve)
   - MINOR (final review): About sentence longer than "short connective" (still truthful/traceable).
+Task 7: complete (commits 69b0713..370bb01, review clean)
+  - MINOR (final polish): border token drift (border-muted/15 vs .line rgba(120,150,200,.14)); raw hex for mac-chrome — consistent across sections; unify tokens in polish.
