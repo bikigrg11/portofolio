@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { IridescentKnot } from './IridescentKnot'
 
 const DEFAULT_NODE_COUNT = 90
 const PULSE_COUNT = 40
@@ -77,6 +78,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
   const groupRef = useRef<THREE.Group>(null)
   const pointsMatRef = useRef<THREE.PointsMaterial>(null)
   const pulsePointsRef = useRef<THREE.Points>(null)
+  const starsRef = useRef<THREE.Points>(null)
 
   const pulses = useMemo(
     () =>
@@ -120,6 +122,13 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
       pointsMatRef.current.opacity = 0.6 + Math.sin(t * 2) * 0.15
     }
 
+    // Slow drift of the starfield so the background pixels feel alive,
+    // echoing the carousel prototype's rotating stars.
+    if (starsRef.current) {
+      starsRef.current.rotation.y += 0.00025 * (delta * 60)
+      starsRef.current.rotation.x += 0.0001 * (delta * 60)
+    }
+
     if (edges.length > 0 && pulsePointsRef.current) {
       const arr = pulsePointsRef.current.geometry.attributes.position.array as Float32Array
       pulses.forEach((pu, i) => {
@@ -141,7 +150,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
   return (
     <>
       <group ref={groupRef}>
-        <points>
+        <points frustumCulled={false}>
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
@@ -158,7 +167,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
           />
         </points>
 
-        <lineSegments>
+        <lineSegments frustumCulled={false}>
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
@@ -168,7 +177,7 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
           <lineBasicMaterial color="#3b82f6" transparent opacity={0.22} />
         </lineSegments>
 
-        <points ref={pulsePointsRef}>
+        <points ref={pulsePointsRef} frustumCulled={false}>
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
@@ -186,14 +195,17 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
         </points>
       </group>
 
-      <points>
+      {/* Small iridescent accent object drifting in the background */}
+      <IridescentKnot position={[6.2, 3.2, -3]} scale={0.5} />
+
+      <points ref={starsRef} frustumCulled={false}>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
             args={[starPositions, 3]}
           />
         </bufferGeometry>
-        <pointsMaterial color="#33507a" size={0.08} transparent opacity={0.6} />
+        <pointsMaterial color="#22e6d6" size={0.07} transparent opacity={0.42} sizeAttenuation />
       </points>
     </>
   )

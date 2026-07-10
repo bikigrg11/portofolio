@@ -62,14 +62,19 @@ export function HeroCanvas() {
     )
   }
 
+  // NOTE: R3F's <Canvas> sets an inline `position: relative` on its own
+  // container, which would override a `fixed` className — so we wrap it in a
+  // fixed full-viewport div and let the Canvas fill that instead. Without this
+  // the canvas collapses to a ~150px sliver and the background looks blank.
   return (
-    <Canvas
-      className="fixed inset-0 -z-10"
-      dpr={[1, 2]}
-      camera={{ position: [0, 0, 14], fov: 55 }}
-      frameloop="always"
-    >
-      <NodeGraph nodeCount={nodeCount} />
-    </Canvas>
+    <div className="fixed inset-0 -z-10" aria-hidden="true">
+      <Canvas
+        dpr={[1, 2]}
+        camera={{ position: [0, 0, 14], fov: 55 }}
+        frameloop="always"
+      >
+        <NodeGraph nodeCount={nodeCount} />
+      </Canvas>
+    </div>
   )
 }
