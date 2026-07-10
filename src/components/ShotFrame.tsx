@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 
 type ShotFrameProps = {
   src?: string
   alt: string
   label: string
+  visual?: ReactNode
 }
 
-export function ShotFrame({ src, alt, label }: ShotFrameProps) {
+export function ShotFrame({ src, alt, label, visual }: ShotFrameProps) {
   const [failed, setFailed] = useState(false)
   const showPlaceholder = !src || failed
 
@@ -19,7 +20,9 @@ export function ShotFrame({ src, alt, label }: ShotFrameProps) {
         <span className="ml-3 self-center text-[11px] text-muted">{label}</span>
       </div>
       <div className="relative aspect-[16/10] overflow-hidden">
-        {showPlaceholder ? (
+        {visual ? (
+          <div className="grid h-full w-full place-items-center bg-[#0a1120]">{visual}</div>
+        ) : showPlaceholder ? (
           <div className="relative grid h-full w-full place-items-center">
             <div
               className="absolute inset-0 opacity-50"

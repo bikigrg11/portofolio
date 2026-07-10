@@ -1,6 +1,13 @@
 // Content data module — facts are sourced from job-hunt-tracker/data/profile.md
 // (master profile) and the approved design spec (non-featured project names).
 // Never invent facts here; edit profile.md or the design spec first, then this file.
+// This is a .tsx module (not .ts) because the infra projects reference hand-authored
+// SVG visual components (JSX) in place of a screenshot.
+
+import type { ReactNode } from 'react'
+import { McpDiagram } from '../components/visuals/McpDiagram'
+import { AutoscaleDiagram } from '../components/visuals/AutoscaleDiagram'
+import { KyvernoDiagram } from '../components/visuals/KyvernoDiagram'
 
 export type Project = {
   id: string
@@ -14,6 +21,7 @@ export type Project = {
   stack: string[]
   links: { label: string; href: string }[]
   shot: string
+  visual?: ReactNode
   featured: boolean
 }
 
@@ -35,6 +43,7 @@ export const projects: Project[] = [
     stack: ['Python', 'FastMCP', 'Kubernetes', 'Rancher', 'Claude Code', 'n8n', 'Slack API'],
     links: [],
     shot: '/shots/kubernetes-mcp-server.png',
+    visual: <McpDiagram />,
     featured: true,
   },
   {
@@ -71,6 +80,7 @@ export const projects: Project[] = [
     stack: ['Kubernetes', 'Karpenter', 'KEDA', 'ScaleOps', 'Datadog'],
     links: [],
     shot: '/shots/game-aware-autoscaling.png',
+    visual: <AutoscaleDiagram />,
     featured: true,
   },
   {
@@ -89,6 +99,7 @@ export const projects: Project[] = [
     stack: ['Kubernetes', 'Kyverno', 'AWS', 'Datadog'],
     links: [],
     shot: '/shots/kyverno-outage-killer.png',
+    visual: <KyvernoDiagram />,
     featured: true,
   },
   {

@@ -19,7 +19,12 @@ export function CaseStudy({ project, index }: CaseStudyProps) {
             : '[transform:perspective(1400px)_rotateY(-6deg)]'
         }`}
       >
-        <ShotFrame src={project.shot} alt={project.title} label={project.title} />
+        <ShotFrame
+          src={project.shot}
+          alt={project.title}
+          label={project.title}
+          visual={project.visual}
+        />
       </div>
     </div>
   )
