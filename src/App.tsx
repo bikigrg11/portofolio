@@ -1,7 +1,24 @@
+import { Nav } from './components/Nav'
+import { Section } from './components/Section'
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-fg text-2xl font-sans">Personal Portfolio</h1>
+    <div className="min-h-screen bg-bg">
+      <Nav />
+      <main className="pt-16">
+        <Section id="work" eyebrow="Work" title="Work">
+          <p className="text-muted">Placeholder — work experience coming soon.</p>
+        </Section>
+        <Section id="projects" eyebrow="Projects" title="Projects">
+          <p className="text-muted">Placeholder — projects grid coming soon.</p>
+        </Section>
+        <Section id="stack" eyebrow="Stack" title="Stack">
+          <p className="text-muted">Placeholder — skills/stack coming soon.</p>
+        </Section>
+        <Section id="contact" eyebrow="Contact" title="Contact">
+          <p className="text-muted">Placeholder — contact info coming soon.</p>
+        </Section>
+      </main>
     </div>
   )
 }
