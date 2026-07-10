@@ -1,6 +1,6 @@
-// Content data module — every fact here is sourced verbatim from
-// job-hunt-tracker/data/profile.md (the single source of truth). Never invent
-// facts here; edit profile.md first, then this file.
+// Content data module — facts are sourced from job-hunt-tracker/data/profile.md
+// (master profile) and the approved design spec (non-featured project names).
+// Never invent facts here; edit profile.md or the design spec first, then this file.
 
 export type Project = {
   id: string
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     built:
       'Built an MCP (Model Context Protocol) server using FastMCP that exposes Kubernetes operations on Rancher-managed clusters as tools for AI agents. Implemented multi-layer authentication (Rancher bearer tokens) to scope agent access per cluster / namespace, and integrated it with Claude Code, n8n, and Slack-based alerting to drive automated incident workflows.',
     metrics: [
-      { n: '100+', label: 'clusters reachable through the MCP layer' },
+      { n: 'per-ns', label: 'Scoped agent auth' },
       { n: '3', label: 'integration surfaces: Claude Code, n8n, Slack' },
     ],
     stack: ['Python', 'FastMCP', 'Kubernetes', 'Rancher', 'Claude Code', 'n8n', 'Slack API'],
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     built:
       'Authored custom Kyverno policies that auto-route network-heavy workloads to high-bandwidth nodepools, eliminating the outage class. Drove it end-to-end — detection, mitigation, rollout, postmortem — and built the Datadog dashboards used to monitor Kyverno policy behavior in production.',
     metrics: [
-      { n: '1', label: 'recurring outage class eliminated' },
+      { n: '0', label: 'PPS-limit outages after rollout' },
     ],
     stack: ['Kubernetes', 'Kyverno', 'AWS', 'Datadog'],
     links: [],
