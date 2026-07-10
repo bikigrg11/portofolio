@@ -1,13 +1,13 @@
 import { Nav } from './components/Nav'
 import { Section } from './components/Section'
-import { HeroCanvas } from './three/HeroCanvas'
+import { Hero } from './sections/Hero'
 
 function App() {
   return (
     <div className="min-h-screen bg-bg">
-      <HeroCanvas />
       <Nav />
-      <main className="pt-16">
+      <Hero />
+      <main>
         <Section id="work" eyebrow="Work" title="Work">
           <p className="text-muted">Placeholder — work experience coming soon.</p>
         </Section>
