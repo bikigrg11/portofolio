@@ -12,7 +12,7 @@
 
 - Project root: `/Users/bikigurung/Desktop/Claude-Code/personalweb` (git repo already initialized here).
 - All factual content (roles, dates, metrics, project descriptions) MUST come from `../job-hunt-tracker/data/profile.md`. Never invent facts.
-- Contact: Biki Gurung · bikigurung8@gmail.com · New York, NY · github.com/bikigrg11 · linkedin.com/in/biki-gurung-264a08aa · (929) 649-8330.
+- Contact: Biki Gurung · bikigurung8@gmail.com · New York, NY · github.com/bikigrg11 · linkedin.com/in/biki-gurung-264a08aa · [redacted].
 - Theme tokens (verbatim): `--bg:#05070d`, `--bg2:#0a0f1a`, `--fg:#e6edf7`, `--muted:#7d8aa3`, `--accent:#22e6d6`, `--accent2:#3b82f6`, `--line:rgba(120,150,200,.14)`.
 - Must respect `prefers-reduced-motion` and provide a WebGL fallback (no crash if WebGL unavailable).
 - Cap `devicePixelRatio` at 2 in all 3D canvases.
