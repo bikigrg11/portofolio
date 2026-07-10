@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <>
       <HeroCanvas />
-      <div className="relative z-10 flex min-h-screen flex-col justify-center px-[6vw] py-32">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1200px] flex-col justify-center px-[6vw] py-32">
         <span className="mb-6 inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
           <span className="h-2 w-2 rounded-full bg-accent" />
           {profile.title} · NYC
