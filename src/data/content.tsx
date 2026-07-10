@@ -8,6 +8,7 @@ import type { ReactNode } from 'react'
 import { McpDiagram } from '../components/visuals/McpDiagram'
 import { AutoscaleDiagram } from '../components/visuals/AutoscaleDiagram'
 import { KyvernoDiagram } from '../components/visuals/KyvernoDiagram'
+import { TradingBotDiagram } from '../components/visuals/TradingBotDiagram'
 
 export type Project = {
   id: string
@@ -61,7 +62,8 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'FastAPI', 'WebSocket', 'Interactive Brokers API'],
     links: [],
-    shot: '/shots/trading-bot.png',
+    shot: '',
+    visual: <TradingBotDiagram />,
     featured: true,
   },
   {
