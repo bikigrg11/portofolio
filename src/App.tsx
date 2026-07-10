@@ -8,16 +8,13 @@ import { Contact } from './sections/Contact'
 function App() {
   return (
     <div className="min-h-screen">
-      {/* Dark veil over the 3D background so text stays readable — lighter at
-          the hero (top), darker over the content-heavy sections below. Sits
-          between the -z-10 canvas and the page content. */}
+      {/* Uniform dark veil over the 3D background so text stays readable at a
+          consistent dimness the whole way down (no fade-to-black on scroll).
+          Sits between the -z-10 canvas and the page content. */}
       <div
         className="pointer-events-none fixed inset-0 -z-[5]"
         aria-hidden="true"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(5,7,13,0.55) 0%, rgba(5,7,13,0.78) 55%, rgba(5,7,13,0.90) 100%)',
-        }}
+        style={{ background: 'rgba(5,7,13,0.58)' }}
       />
       <Nav />
       <Hero />

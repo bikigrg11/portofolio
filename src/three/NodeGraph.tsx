@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -117,6 +117,21 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
   const drift = useRef({ tx: 0, ty: 0 })
   const clock = useRef(0)
 
+  // Scroll progress (0..1) feeds a gentle parallax rotation/zoom of the whole
+  // graph as the page scrolls — a background-only animation that never touches
+  // text legibility.
+  const scrollProgress = useRef(0)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      scrollProgress.current = max > 0 ? window.scrollY / max : 0
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   useFrame((state, delta) => {
     clock.current += delta
     const t = clock.current
@@ -126,14 +141,20 @@ export function NodeGraph({ nodeCount = DEFAULT_NODE_COUNT }: NodeGraphProps) {
     drift.current.tx = nx * 0.6
     drift.current.ty = ny * 0.6
 
+    const scroll = scrollProgress.current
+
     const group = groupRef.current
     if (group) {
-      group.rotation.y += 0.0016 * (delta * 60)
-      group.rotation.x = drift.current.ty * 0.5
+      // continuous slow spin + extra rotation driven by scroll position
+      group.rotation.y += 0.0016 * (delta * 60) + scroll * 0.0006
+      group.rotation.x = drift.current.ty * 0.5 + scroll * 0.6
     }
 
     state.camera.position.x += (drift.current.tx * 4 - state.camera.position.x) * 0.05
     state.camera.position.y += (-drift.current.ty * 4 - state.camera.position.y) * 0.05
+    // gentle parallax dolly: pull back a little as the page scrolls down
+    const targetZ = 14 + scroll * 6
+    state.camera.position.z += (targetZ - state.camera.position.z) * 0.05
     state.camera.lookAt(0, 0, 0)
 
     if (pointsMatRef.current) {
