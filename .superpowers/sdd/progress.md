@@ -16,3 +16,5 @@ Task 6: complete (commits 0e0d40b..277920f, review clean; fix: #work nav link ->
   - MINOR (final review): About sentence longer than "short connective" (still truthful/traceable).
 Task 7: complete (commits 69b0713..370bb01, review clean)
   - MINOR (final polish): border token drift (border-muted/15 vs .line rgba(120,150,200,.14)); raw hex for mac-chrome — consistent across sections; unify tokens in polish.
+Task 8: complete (commits f2e7d7c..dca017d, review clean)
+  - MINOR (polish): external github/linkedin links lack target=_blank rel=noopener (consistent w/ CaseStudy links).
