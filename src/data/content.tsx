@@ -113,11 +113,53 @@ export const projects: Project[] = [
     visual: <KyvernoDiagram />,
     featured: true,
   },
+  {
+    id: 'automated-incident-rca',
+    num: '05',
+    title: 'Automated Incident Investigation',
+    icon: '🚨',
+    category: 'AI Agents · Incident Response',
+    year: '2026',
+    role: 'DraftKings — Cloud Compute Team',
+    problem:
+      'Every Datadog page kicked off manual investigation — engineers hopping across clusters, dashboards, and old tickets to reconstruct what happened. Incident context was scattered and easily lost between on-call rotations.',
+    built:
+      'An automated incident-investigation pipeline: when a Datadog monitor alerts or pages, n8n orchestrates the Rancher/Kubernetes MCP to investigate across clusters, correlate signals, and surface a probable root cause straight into Slack. Every incident — findings, timeline, and resolution — is written to a Confluence knowledge base, so past history and context accumulate and stay current for the next page.',
+    metrics: [
+      { n: 'per-page', label: 'auto root-cause investigation' },
+      { n: 'Confluence', label: 'self-updating incident memory' },
+    ],
+    stack: ['n8n', 'Kubernetes MCP', 'Rancher', 'Datadog', 'Slack', 'Confluence', 'Claude'],
+    links: [],
+    shot: '',
+    featured: true,
+  },
+  {
+    id: 'fleet-health-eol-auditor',
+    num: '06',
+    title: 'Fleet Health & EOL Auditor',
+    icon: '🩺',
+    category: 'Infra · Reliability',
+    year: '2026',
+    role: 'DraftKings — Cloud Compute Team',
+    problem:
+      "Across a large cluster fleet it's hard to know at a glance whether everything is healthy and what's drifting toward end-of-life — controller versions, Kubernetes distros (EKS, RKE2), and the Git repos backing it all.",
+    built:
+      'An MCP-driven auditor that sweeps every cluster to report overall health, then checks end-of-life across controllers and Kubernetes versions — EKS and RKE2 EOL, upgrade history — and folds in the health of the backing Git repos. Turns a slow, error-prone manual audit into a single automated pass across the whole fleet.',
+    metrics: [
+      { n: 'fleet-wide', label: 'health + EOL scan' },
+      { n: 'EKS + RKE2', label: 'version & EOL tracking' },
+    ],
+    stack: ['Kubernetes MCP', 'Rancher', 'EKS', 'RKE2', 'Python', 'Git'],
+    links: [],
+    shot: '',
+    featured: true,
+  },
 
   // ---------- Personal projects: carousel cards ----------
   {
     id: 'kept',
-    num: '05',
+    num: '07',
     title: 'Kept',
     icon: '🧾',
     category: 'Mobile App',
@@ -134,7 +176,7 @@ export const projects: Project[] = [
   },
   {
     id: 'rallo',
-    num: '06',
+    num: '08',
     title: 'Rallo',
     icon: '👋',
     category: 'Social App',
@@ -151,7 +193,7 @@ export const projects: Project[] = [
   },
   {
     id: 'pokeinvest',
-    num: '07',
+    num: '09',
     title: 'PokeInvest',
     icon: '📊',
     category: 'Web · Fintech',
@@ -168,7 +210,7 @@ export const projects: Project[] = [
   },
   {
     id: 'content-creator',
-    num: '08',
+    num: '10',
     title: 'Signal — AI Content Engine',
     icon: '✍️',
     category: 'AI Agents',
@@ -185,7 +227,7 @@ export const projects: Project[] = [
   },
   {
     id: 'job-hunt-tracker',
-    num: '10',
+    num: '11',
     title: 'Job Hunt Tracker',
     icon: '🎯',
     category: 'AI Agents',
@@ -202,7 +244,7 @@ export const projects: Project[] = [
   },
   {
     id: 'packout',
-    num: '11',
+    num: '12',
     title: 'PackOut',
     icon: '📦',
     category: 'Web · Marketplace',
@@ -219,7 +261,7 @@ export const projects: Project[] = [
   },
   {
     id: 'bitcoin-15',
-    num: '12',
+    num: '13',
     title: 'Prediction Market · Bitcoin 15',
     icon: '₿',
     category: 'Trading · Prediction Markets',
